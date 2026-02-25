@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
-import { Card, Searchbar } from 'react-native-paper';
+import { Searchbar } from 'react-native-paper';
 
 const { width } = Dimensions.get('window');
 
@@ -14,8 +14,6 @@ const categories = [
 ];
 
 const HomeScreen = () => {
-  const dailyRevenue = 5250.75;
-  const userName = 'Vinícius';
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
@@ -45,25 +43,6 @@ const HomeScreen = () => {
               </TouchableOpacity>
             ))}
           </ScrollView>
-        </View>
-
-        {/* Card de Boas-vindas existente */}
-        <Card style={styles.welcomeCard}>
-          <Card.Content>
-            <Text style={styles.welcomeTitle}>Olá, {userName}!</Text>
-            <Text style={styles.welcomeSubtitle}>Boas-vindas ao seu Dashboard.</Text>
-          </Card.Content>
-        </Card>
-
-        {/* Dashboard de Vendas existente */}
-        <View style={styles.salesDashboard}>
-          <Text style={styles.sectionTitle}>Dashboard de Vendas</Text>
-          <Card style={styles.salesCard}>
-            <Card.Content>
-              <Text style={styles.cardTitle}>Faturamento do Dia</Text>
-              <Text style={styles.revenueText}>R$ {dailyRevenue.toFixed(2)}</Text>
-            </Card.Content>
-          </Card>
         </View>
       </View>
     </SafeAreaView>
@@ -104,7 +83,7 @@ const styles = StyleSheet.create({
   circularImage: {
     width: 60,
     height: 60,
-    borderRadius: 30, // Torna a imagem circular
+    borderRadius: 30,
     borderWidth: 2,
     borderColor: '#4CAF50',
   },
@@ -112,36 +91,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 12,
     textAlign: 'center',
-  },
-  welcomeCard: {
-    marginBottom: 20,
-    backgroundColor: '#4CAF50',
-    elevation: 4,
-  },
-  welcomeTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  welcomeSubtitle: {
-    color: '#fff',
-  },
-  salesDashboard: {
-    marginTop: 10,
-  },
-  salesCard: {
-    elevation: 4,
-    width: width - 32,
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  revenueText: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#2196F3',
-    marginTop: 10,
   },
 });
 
