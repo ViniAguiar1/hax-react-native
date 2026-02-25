@@ -1,10 +1,16 @@
 # my-rn-app
 
 ## Modelo do Projeto
-Este projeto é um aplicativo móvel construído com **React Native** utilizando o framework **Expo**. A navegação de abas (tabs) nativa foi implementada usando `@react-navigation/bottom-tabs`, e os componentes de UI utilizam a biblioteca **React Native Paper**. As telas `HomeScreen` e `ProfileScreen` foram configuradas com `SafeAreaView` para garantir a correta exibição abaixo da barra de status nativa.
+Este projeto é um aplicativo móvel construído com **React Native** utilizando o framework **Expo**.
+
+### Funcionalidades Atuais
+*   **Navegação:** Implementação de navegação de abas (tabs) nativa usando `@react-navigation/bottom-tabs`.
+*   **UI:** Componentes de interface utilizando **React Native Paper**.
+*   **Mapa Interativo:** Integração com `react-native-maps`, configurado para utilizar o mapa padrão no iOS.
+*   **Localização:** Gerenciamento de permissões e obtenção da localização atual do dispositivo utilizando `expo-location`, com solicitação explícita de permissão para uso (configurado via `Info.plist` para iOS).
 
 ## Construção e Interação
-O desenvolvimento deste projeto está sendo conduzido com o suporte de **HAX**, um assistente técnico de inteligência artificial no VS Code. A HAX auxiliou na configuração inicial, implementação de funcionalidades nativas (como `SafeAreaView`) e no gerenciamento do controle de versão.
+O desenvolvimento e as configurações nativas (pré-build iOS, permissões de localização) foram conduzidos com o suporte de **HAX**, um assistente técnico de inteligência artificial no VS Code.
 
 ---
-*README gerado automaticamente durante o desenvolvimento assistido por HAX.*
+*README atualizado automaticamente durante o desenvolvimento assistido por HAX.*
