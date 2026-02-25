@@ -5,14 +5,15 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native'; // Importa useNavigation
 
 const { width } = Dimensions.get('window');
+const STATIC_IMAGE_URL = 'https://imgmd.net/images/v1/guia/1684034/ilhabela-229-c.jpg';
 
 const categories = [
-  { id: '1', name: 'Praia', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=150&auto=format&fit=crop' },
-  { id: '2', name: 'Floresta', image: 'https://images.unsplash.com/photo-153227440291-421b85f20815?q=80&w=150&auto=format&fit=crop' },
-  { id: '3', name: 'Casa', image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3bafb?q=80&w=150&auto=format&fit=crop' },
-  { id: '4', name: 'Castelo', image: 'https://images.unsplash.com/photo-1533105079-dab52097982f?q=80&w=150&auto=format&fit=crop' },
-  { id: '5', name: 'Hotéis', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099557?q=80&w=150&auto=format&fit=crop' },
-  { id: '6', name: 'Montanha', image: 'https://images.unsplash.com/photo-1506905925346-c43366021820?q=80&w=150&auto=format&fit=crop' },
+  { id: '1', name: 'Praia', image: STATIC_IMAGE_URL },
+  { id: '2', name: 'Floresta', image: STATIC_IMAGE_URL },
+  { id: '3', name: 'Casa', image: STATIC_IMAGE_URL },
+  { id: '4', name: 'Castelo', image: STATIC_IMAGE_URL },
+  { id: '5', name: 'Hotéis', image: STATIC_IMAGE_URL },
+  { id: '6', name: 'Montanha', image: STATIC_IMAGE_URL },
 ];
 
 const places = [
@@ -23,7 +24,7 @@ const places = [
     price: 570,
     nights: 5,
     rating: 4.3,
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099557?q=80&w=400&auto=format&fit=crop',
+    image: STATIC_IMAGE_URL,
   },
   {
     id: '2',
@@ -32,7 +33,7 @@ const places = [
     price: 2800,
     nights: 5,
     rating: 3.7,
-    image: 'https://images.unsplash.com/photo-1533105079-dab52097982f?q=80&w=400&auto=format&fit=crop',
+    image: STATIC_IMAGE_URL,
   },
 ];
 
@@ -43,7 +44,8 @@ const HomeScreen = () => {
   const renderPlaceCard = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate('Detail', { placeId: item.id })}>
         <Card style={styles.placeCard}>
-        <Image source={{ uri: item.image }} style={styles.placeImage} />
+        {/* Updated to use static URL */}
+        <Image source={{ uri: STATIC_IMAGE_URL }} style={styles.placeImage} />
         <Card.Content>
             <View style={styles.placeHeader}>
                 <Title style={styles.placeTitle}>{item.title}</Title>
@@ -65,22 +67,22 @@ const HomeScreen = () => {
         <View style={styles.dashboardContainer}>
             {/* Barra de Pesquisa */}
             <Searchbar
-                placeholder="Buscar espaços..."
+                placeholder="Buscar destinos"
                 onChangeText={setSearchQuery}
                 value={searchQuery}
                 style={styles.searchBar}
-                inputStyle={styles.searchBarInput}
             />
 
-            {/* Seção de Categorias */}
+            {/* Categorias */}
             <Text style={styles.sectionTitle}>Categorias</Text>
             <FlatList
                 data={categories}
                 renderItem={({ item }) => (
-                    <View style={styles.categoryItem}>
-                        <Image source={{ uri: item.image }} style={styles.categoryImage} />
+                    <TouchableOpacity style={styles.categoryItem}>
+                        {/* Updated to use static URL */}
+                        <Image source={{ uri: STATIC_IMAGE_URL }} style={styles.categoryImage} />
                         <Text style={styles.categoryName}>{item.name}</Text>
-                    </View>
+                    </TouchableOpacity>
                 )}
                 keyExtractor={item => item.id}
                 horizontal
@@ -88,8 +90,8 @@ const HomeScreen = () => {
                 style={styles.categoriesList}
             />
 
-            {/* Seção de Lugares Populares */}
-            <Text style={styles.sectionTitle}>Lugares Populares</Text>
+            {/* Lugares em Destaque */}
+            <Text style={styles.sectionTitle}>Lugares em Destaque</Text>
             <FlatList
                 data={places}
                 renderItem={renderPlaceCard}
@@ -107,80 +109,89 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
   },
   scrollViewContent: {
-    flex: 1,
+    padding: 10,
   },
   dashboardContainer: {
-    padding: 16,
+    paddingTop: 10,
   },
   searchBar: {
-    marginBottom: 16,
-    borderRadius: 8,
-  },
-  searchBarInput: {
-    fontSize: 16,
+    margin: 10,
+    elevation: 2,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
-    marginTop: 10,
+    margin: 10,
+    marginTop: 15,
+    color: '#333',
   },
   categoriesList: {
-    marginBottom: 10,
+    paddingLeft: 10,
   },
   categoryItem: {
     marginRight: 15,
     alignItems: 'center',
   },
   categoryImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginBottom: 5,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: 2,
+    borderColor: '#fff',
+    elevation: 3,
+  },
+  categoryName: {
+    marginTop: 5,
+    fontSize: 12,
+    color: '#555',
   },
   placesList: {
-    marginBottom: 10,
+    paddingLeft: 10,
+    marginBottom: 20,
   },
   placeCard: {
     width: width * 0.75,
     marginRight: 15,
-    borderRadius: 8,
-    overflow: 'hidden',
+    borderRadius: 10,
+    elevation: 4,
   },
   placeImage: {
     width: '100%',
     height: 150,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   placeHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 5,
   },
   placeTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
-    flex: 1,
   },
   placeLocation: {
     fontSize: 14,
-    color: 'gray',
-    marginBottom: 8,
+    color: '#777',
+    marginTop: 2,
   },
   placePrice: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
-    color: '#673AB7',
+    color: '#444',
+    marginTop: 5,
   },
   rating: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#fff',
     padding: 5,
     borderRadius: 5,
+    elevation: 2,
   }
 });
 
