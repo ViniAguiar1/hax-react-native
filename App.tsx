@@ -3,20 +3,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import HomeScreen from './screens/HomeScreen';
+import HomeStackScreen from './navigation/HomeStack'; // Importando o Stack Navigator
 import ProfileScreen from './screens/ProfileScreen';
-import MapScreen from './screens/MapScreen'; // Importando MapScreen
+import MapScreen from './screens/MapScreen';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
-// Definindo um tema com a cor roxa primária
 const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#673AB7', // Roxo padrão (Deep Purple)
-    accent: '#9C27B0', // Um roxo de destaque
+    primary: '#673AB7',
+    accent: '#9C27B0',
   },
 };
 
@@ -30,22 +29,23 @@ export default function App() {
               tabBarIcon: ({ color, size }) => {
                 let iconName;
 
-                if (route.name === 'Home') {
+                if (route.name === 'HomeStack') { // Alterado para HomeStack
                   iconName = 'home';
                 } else if (route.name === 'Perfil') {
                   iconName = 'account';
                 } else if (route.name === 'Mapa') {
-                    iconName = 'map'; // Ícone de mapa
+                    iconName = 'map';
                 }
 
                 return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
               },
-              tabBarActiveTintColor: '#673AB7', // Usando roxo aqui também para consistência
+              tabBarActiveTintColor: '#673AB7',
               tabBarInactiveTintColor: 'gray',
               headerShown: false,
             })}
           >
-            <Tab.Screen name="Home" component={HomeScreen} />
+            {/* Usando HomeStackScreen como componente para a aba Home */}
+            <Tab.Screen name="HomeStack" component={HomeStackScreen} options={{ tabBarLabel: 'Home' }} />
             <Tab.Screen name="Mapa" component={MapScreen} /> 
             <Tab.Screen name="Perfil" component={ProfileScreen} />
           </Tab.Navigator>
