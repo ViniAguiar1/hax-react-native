@@ -7,9 +7,9 @@ const { width } = Dimensions.get('window');
 
 const categories = [
   { id: '1', name: 'Praia', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=150&auto=format&fit=crop' },
-  { id: '2', name: 'Floresta', image: 'https://images.unsplash.com/photo-1542353133-c151c893693f?q=80&w=150&auto=format&fit=crop' },
+  { id: '2', name: 'Floresta', image: 'https://images.unsplash.com/photo-153227440291-421b85f20815?q=80&w=150&auto=format&fit=crop' }, // Placeholder updated
   { id: '3', name: 'Casa', image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3bafb?q=80&w=150&auto=format&fit=crop' },
-  { id: '4', name: 'Castelo', image: 'https://images.unsplash.com/photo-1574313883730-a81ae8131342?q=80&w=150&auto=format&fit=crop' },
+  { id: '4', name: 'Castelo', image: 'https://images.unsplash.com/photo-1533105079-dab52097982f?q=80&w=150&auto=format&fit=crop' }, // Placeholder updated
   { id: '5', name: 'Hotéis', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099557?q=80&w=150&auto=format&fit=crop' },
   { id: '6', name: 'Montanha', image: 'https://images.unsplash.com/photo-1506905925346-c43366021820?q=80&w=150&auto=format&fit=crop' },
 ];
@@ -31,7 +31,7 @@ const places = [
     price: 2800,
     nights: 5,
     rating: 3.7,
-    image: 'https://images.unsplash.com/photo-1574313883730-a81ae8131342?q=80&w=400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1533105079-dab52097982f?q=80&w=400&auto=format&fit=crop', // Placeholder updated
   },
 ];
 
@@ -69,30 +69,33 @@ const HomeScreen = () => {
             />
 
             {/* Carrossel de Categorias */}
-            <View style={styles.categoryContainer}>
+            <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Categorias</Text>
-                <ScrollView
+                <FlatList
+                    data={categories}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity style={styles.categoryItem}>
+                            <Image source={{ uri: item.image }} style={styles.categoryImage} />
+                            <Text style={styles.categoryName}>{item.name}</Text>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item.id}
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.categoryScrollView}
-                >
-                    {categories.map((category) => (
-                    <TouchableOpacity key={category.id} style={styles.categoryItem}>
-                        <Image source={{ uri: category.image }} style={styles.circularImage} />
-                        <Text style={styles.categoryName}>{category.name}</Text>
-                    </TouchableOpacity>
-                    ))}
-                </ScrollView>
+                    contentContainerStyle={styles.categoryList}
+                />
             </View>
 
-            {/* Feed de Lugares (AirBNB style) */}
-            <View style={styles.feedContainer}>
-                <Text style={styles.sectionTitle}>Destaques</Text>
+            {/* Lugares Populares */}
+            <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Lugares Populares</Text>
                 <FlatList
                     data={places}
                     renderItem={renderPlaceCard}
-                    keyExtractor={(item) => item.id}
-                    scrollEnabled={false} // Desabilita o scroll interno para usar o scroll principal
+                    keyExtractor={item => item.id}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.placeList}
                 />
             </View>
         </View>
@@ -104,91 +107,95 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f0f0f0',
   },
   scrollViewContent: {
-    flex: 1,
+    flexGrow: 1,
   },
   dashboardContainer: {
     padding: 16,
+    paddingTop: 40,
   },
   searchBar: {
-    marginBottom: 15,
+    borderRadius: 8,
+    marginBottom: 16,
     elevation: 2,
   },
   searchBarInput: {
-    padding: 0,
+    fontSize: 16,
   },
-  categoryContainer: {
-    marginBottom: 15,
+  section: {
+    marginBottom: 16,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: 8,
+    color: '#333',
   },
-  categoryScrollView: {
-    paddingVertical: 5,
+  categoryList: {
+    paddingVertical: 8,
   },
   categoryItem: {
-    marginRight: 15,
+    marginRight: 12,
     alignItems: 'center',
   },
-  circularImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+  categoryImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     borderWidth: 2,
-    borderColor: '#4CAF50',
+    borderColor: '#fff',
+    elevation: 3,
   },
   categoryName: {
-    marginTop: 5,
+    marginTop: 4,
     fontSize: 12,
-    textAlign: 'center',
+    color: '#555',
   },
-  feedContainer: {
-    marginTop: 10,
+  placeList: {
+    paddingVertical: 8,
   },
   placeCard: {
-    marginBottom: 15,
-    elevation: 4,
-    borderRadius: 10,
+    width: width * 0.75,
+    marginRight: 16,
+    borderRadius: 8,
+    elevation: 3,
   },
   placeImage: {
+    height: 150,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
     width: '100%',
-    height: 200,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
   },
   placeHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 8,
   },
   placeTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
+    flex: 1,
   },
   placeLocation: {
     fontSize: 14,
-    color: '#888',
-    marginBottom: 5,
+    color: '#777',
+    marginTop: 4,
   },
   placePrice: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#4CAF50',
-    marginTop: 5,
+    color: '#673AB7', // Alterado de #4CAF50 (verde) para roxo (#673AB7)
+    marginTop: 8,
   },
   rating: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 5,
-    borderRadius: 5,
-    elevation: 2,
+    backgroundColor: '#f0f0f0',
+    padding: 4,
+    borderRadius: 4,
   }
 });
 
